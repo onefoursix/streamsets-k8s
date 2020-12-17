@@ -1,0 +1,92 @@
+apiVersion: 1
+kind: List
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: sdc-microservice
+    namespace: ns1   
+    labels:
+      app: sdc-microservice
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: sdc-microservice
+    template:
+      metadata:
+        labels:
+          app: sdc-microservice
+      spec:
+        containers:
+        - name: sdc-microservice
+          image: <SDC-with-Jython-image>
+          resources:
+            limits:
+              memory: 12000Mi
+              cpu: 3500m
+            requests:
+              memory: 256Mi
+              cpu: 500m
+          ports:
+          - containerPort: 18666
+          env:
+          - name: SDC_JAVA_OPTS
+            value: "-Xmx12g -Xms6g"
+- apiVersion: autoscaling/v1
+  kind: HorizontalPodAutoscaler
+  metadata:
+    name: sdc-microservice-hpa
+    namespace: ns1
+  spec:
+    scaleTargetRef:
+      apiVersion: apps/v1
+      kind: Deployment
+      name: sdc-microservice
+    minReplicas: 1
+    maxReplicas: 3
+    metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: AverageValue
+          averageValue: 3500Mi          
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: sdc-microservice-svc
+    namespace: ns1    
+    labels:
+      app: sdc-microservice-svc
+  spec:
+    type: NodePort
+    ports:
+    - name: http
+      port: 18666
+      targetPort: 18666
+      protocol: TCP
+    selector:
+      app: sdc-microservice
+- apiVersion: extensions/v1beta1
+  kind: Ingress
+  metadata:
+    name: sdc-microservice-ingress
+    namespace: ns1   
+    annotations:
+      kubernetes.io/ingress.class: traefik
+  spec:
+    rules:
+    - host:
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: sdc-microservice-svc
+            servicePort: 18666

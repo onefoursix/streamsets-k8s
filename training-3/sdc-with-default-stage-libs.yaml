@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sdc
+  labels:
+    app: sdc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sdc
+  template:
+    metadata:
+      labels:
+        app: sdc
+    spec:
+      containers:
+      - name: sdc
+        image: streamsets/datacollector:3.19.1
+        env:
+        - name: SDC_JAVA_OPTS
+          value: "-Xmx1g -Xms1g"
+        - name: SDC_CONF_SDC_BASE_HTTP_URL
+          value: https://<your-host>:31919
+        - name: SDC_CONF_HTTP_ENABLE_FORWARDED_REQUESTS
+          value: true

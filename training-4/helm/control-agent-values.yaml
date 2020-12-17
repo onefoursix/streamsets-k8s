@@ -1,0 +1,7 @@
+image:
+  tag: 3.19.0
+streamsets:
+  orgId: <your org ID>
+  api:
+    url: https://trailer.streamsetscloud.com
+    token: <set a token here>

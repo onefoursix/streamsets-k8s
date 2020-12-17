@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sdc
+  labels:
+    app: sdc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sdc
+  template:
+    metadata:
+      labels:
+        app: sdc
+    spec:
+      initContainers:
+      - name: sdc-stage-libs
+        image: busybox:1.31.1
+        command: ["/bin/sh", "-c"]
+        args:
+        - >
+          BASE_URL=https://archives.streamsets.com/datacollector
+          && SDC_VERSION=3.19.1
+          && for s in `cat /tmp/sdc-stage-libs`; 
+          do 
+            wget ${BASE_URL}/${SDC_VERSION}/tarball/${s}-${SDC_VERSION}.tgz; 
+            tar -xvf ${s}-${SDC_VERSION}.tgz -C /tmp;
+          done
+          && cp -R /tmp/streamsets-datacollector-${SDC_VERSION}/streamsets-libs/streamsets-* /streamsets-libs
+          && for s in `cat /tmp/sdc-enterprise-stage-libs`; 
+          do 
+            wget ${BASE_URL}/latest/tarball/enterprise/${s}.tgz; 
+            tar -xvf ${s}.tgz -C /tmp;
+          done
+          && cp -R /tmp/streamsets-libs/streamsets-* /streamsets-libs
+          && rm -rf /streamsets-libs/lost+found
+          && echo 'Here is a listing of the /streamsets-libs dir'
+          && ls -l /streamsets-libs
+          && exit 0
+        volumeMounts:
+        - name: sdc-stage-libs-list
+          mountPath: /tmp/sdc-stage-libs
+          subPath: sdc-stage-libs
+        - name: sdc-stage-libs-list
+          mountPath: /tmp/sdc-enterprise-stage-libs
+          subPath: sdc-enterprise-stage-libs
+        - name: sdc-stage-libs
+          mountPath: /streamsets-libs
+      containers:
+      - name: sdc
+        image: streamsets/datacollector:3.19.1
+        env:
+        - name: SDC_JAVA_OPTS
+          value: "-Xmx1g -Xms1g"
+        - name: SDC_CONF_SDC_BASE_HTTP_URL
+          value: https://<HOST>[:<PORT>]
+        - name: SDC_CONF_HTTP_ENABLE_FORWARDED_REQUESTS
+          value: true
+        volumeMounts:
+        - name: sdc-stage-libs
+          mountPath: /opt/streamsets-datacollector-3.19.1/streamsets-libs
+          readOnly: "true"
+      volumes:
+      - name: sdc-stage-libs-list
+        configMap:
+          name: sdc-stage-libs-list
+          items:
+            - key: sdc-stage-libs
+              path: sdc-stage-libs
+            - key: sdc-enterprise-stage-libs
+              path: sdc-enterprise-stage-libs
+      - name: sdc-stage-libs
+        emptyDir: {}
