@@ -57,7 +57,7 @@ items:
         name: memory
         target:
           type: AverageValue
-          averageValue: 3500Mi          
+          averageValue: 10000Mi          
 - apiVersion: v1
   kind: Service
   metadata:
