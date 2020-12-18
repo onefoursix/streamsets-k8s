@@ -438,92 +438,146 @@
   } ],
   "uiInfo" : {
     "schemaFromPreview" : {
-      "HTTPClient_01OutputLane16081710563510" : {
-        "header" : { },
-        "value" : {
-          "dqpath" : "",
-          "sqpath" : "",
-          "type" : "MAP",
-          "value" : {
-            "number" : {
-              "dqpath" : "/number",
-              "sqpath" : "/number",
-              "type" : "INTEGER"
-            },
-            "is_prime" : {
-              "dqpath" : "/is_prime",
-              "sqpath" : "/is_prime",
-              "type" : "MAP",
-              "value" : {
-                "data" : {
-                  "dqpath" : "/is_prime/data",
-                  "sqpath" : "/is_prime/data",
-                  "type" : "LIST",
-                  "value" : [ {
-                    "dqpath" : "/is_prime/data[0]",
-                    "sqpath" : "/is_prime/data[0]",
-                    "type" : "MAP",
-                    "value" : {
-                      "number" : {
-                        "dqpath" : "/is_prime/data[0]/number",
-                        "sqpath" : "/is_prime/data[0]/number",
-                        "type" : "INTEGER"
-                      },
-                      "is_prime" : {
-                        "dqpath" : "/is_prime/data[0]/is_prime",
-                        "sqpath" : "/is_prime/data[0]/is_prime",
-                        "type" : "BOOLEAN"
-                      }
-                    }
-                  } ]
-                },
-                "error" : {
-                  "dqpath" : "/is_prime/error",
-                  "sqpath" : "/is_prime/error",
-                  "type" : "LIST"
-                },
-                "httpStatusCode" : {
-                  "dqpath" : "/is_prime/httpStatusCode",
-                  "sqpath" : "/is_prime/httpStatusCode",
-                  "type" : "INTEGER"
-                }
-              }
-            }
-          }
-        }
-      },
       "DevDataGenerator_01OutputLane16081710393100" : {
         "header" : { },
         "value" : {
-          "dqpath" : "",
-          "sqpath" : "",
           "type" : "MAP",
           "value" : {
             "number" : {
+              "type" : "INTEGER",
               "dqpath" : "/number",
-              "sqpath" : "/number",
-              "type" : "INTEGER"
+              "sqpath" : "/number"
             }
-          }
+          },
+          "dqpath" : "",
+          "sqpath" : ""
         }
       },
       "DevDataGenerator_01_EventLane" : {
         "header" : { },
         "value" : {
-          "dqpath" : "",
-          "sqpath" : "",
           "type" : "MAP",
           "value" : {
             "number" : {
+              "type" : "INTEGER",
               "dqpath" : "/number",
-              "sqpath" : "/number",
-              "type" : "INTEGER"
+              "sqpath" : "/number"
             }
-          }
+          },
+          "dqpath" : "",
+          "sqpath" : ""
+        }
+      },
+      "HTTPClient_01OutputLane16081710563510" : {
+        "header" : { },
+        "value" : {
+          "type" : "MAP",
+          "value" : {
+            "number" : {
+              "type" : "INTEGER",
+              "dqpath" : "/number",
+              "sqpath" : "/number"
+            },
+            "response" : {
+              "type" : "MAP",
+              "value" : {
+                "httpStatusCode" : {
+                  "type" : "INTEGER",
+                  "dqpath" : "/response/httpStatusCode",
+                  "sqpath" : "/response/httpStatusCode"
+                },
+                "data" : {
+                  "type" : "LIST",
+                  "value" : [ {
+                    "type" : "MAP",
+                    "value" : {
+                      "number" : {
+                        "type" : "INTEGER",
+                        "dqpath" : "/response/data[0]/number",
+                        "sqpath" : "/response/data[0]/number"
+                      },
+                      "is_prime" : {
+                        "type" : "BOOLEAN",
+                        "dqpath" : "/response/data[0]/is_prime",
+                        "sqpath" : "/response/data[0]/is_prime"
+                      }
+                    },
+                    "dqpath" : "/response/data[0]",
+                    "sqpath" : "/response/data[0]"
+                  } ],
+                  "dqpath" : "/response/data",
+                  "sqpath" : "/response/data"
+                },
+                "error" : {
+                  "type" : "LIST",
+                  "dqpath" : "/response/error",
+                  "sqpath" : "/response/error"
+                }
+              },
+              "dqpath" : "/response",
+              "sqpath" : "/response"
+            }
+          },
+          "dqpath" : "",
+          "sqpath" : ""
+        }
+      },
+      "StreamSelector_01OutputLane1608173603044" : {
+        "header" : { },
+        "value" : {
+          "type" : "MAP",
+          "value" : {
+            "number" : {
+              "type" : "INTEGER",
+              "dqpath" : "/number",
+              "sqpath" : "/number"
+            },
+            "response" : {
+              "type" : "MAP",
+              "value" : {
+                "httpStatusCode" : {
+                  "type" : "INTEGER",
+                  "dqpath" : "/response/httpStatusCode",
+                  "sqpath" : "/response/httpStatusCode"
+                },
+                "data" : {
+                  "type" : "LIST",
+                  "value" : [ {
+                    "type" : "MAP",
+                    "value" : {
+                      "number" : {
+                        "type" : "INTEGER",
+                        "dqpath" : "/response/data[0]/number",
+                        "sqpath" : "/response/data[0]/number"
+                      },
+                      "is_prime" : {
+                        "type" : "BOOLEAN",
+                        "dqpath" : "/response/data[0]/is_prime",
+                        "sqpath" : "/response/data[0]/is_prime"
+                      }
+                    },
+                    "dqpath" : "/response/data[0]",
+                    "sqpath" : "/response/data[0]"
+                  } ],
+                  "dqpath" : "/response/data",
+                  "sqpath" : "/response/data"
+                },
+                "error" : {
+                  "type" : "LIST",
+                  "dqpath" : "/response/error",
+                  "sqpath" : "/response/error"
+                }
+              },
+              "dqpath" : "/response",
+              "sqpath" : "/response"
+            }
+          },
+          "dqpath" : "",
+          "sqpath" : ""
         }
       }
     },
-    "schemaFromPreviewUpdateTime" : 1608178428071,
+    "schemaFromPreviewUpdateTime" : 1608253750558,
     "previewConfig" : {
       "clusterManagerType" : "CONFIGURED_CLUSTER",
       "endStage" : "",
@@ -1156,7 +1210,7 @@
       "value" : ""
     }, {
       "name" : "configs.fileNameSuffix",
-      "value" : null
+      "value" : "json"
     }, {
       "name" : "configs.dirPathTemplateInHeader",
       "value" : false
@@ -1404,12 +1458,12 @@
     "sdcId" : "8f67b0a0-d9d5-11ea-a7c9-0be11597cbc1"
   },
   "metadata" : {
-    "dpm.pipeline.rules.id" : "416a71ce-1acf-4ec6-8026-f5fef391c15b:schbrooks",
+    "dpm.pipeline.rules.id" : "c125b79f-c7dc-4ed2-971d-77fb8b008357:schbrooks",
     "dpm.pipeline.connections" : "",
     "dpm.pipeline.id" : "64e7618a-1723-4c3a-9c1b-7aa2f84efc86:schbrooks",
     "dpm.base.url" : "https://trailer.streamsetscloud.com",
-    "dpm.pipeline.version" : "4",
-    "dpm.pipeline.commit.id" : "ffd599f3-8066-4965-a96f-7b79da6e0274:schbrooks"
+    "dpm.pipeline.version" : "5",
+    "dpm.pipeline.commit.id" : "fab5219a-820c-4388-a062-ee21cabfe6ca:schbrooks"
   },
   "statsAggregatorStage" : {
     "instanceName" : "statsAggregatorStageInstance",
